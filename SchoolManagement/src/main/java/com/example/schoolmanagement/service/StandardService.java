@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StandardService {
+
     private final StandardRepository standardRepository;
     private final SchoolRepository schoolRepository;
 
@@ -23,61 +24,47 @@ public class StandardService {
     }
 
     @Transactional
-    public ResponseDTO createStandard(final StandardDTO standardDTO) {
-
-        final School school = this.schoolRepository.findById(standardDTO.getSchoolId()).orElseThrow(() -> new BadRequestServiceException("School not found"));
+    public ResponseDTO create(final StandardDTO standardDTO) {
+        final School school = this.schoolRepository.findById(standardDTO.getSchoolId()).orElseThrow(() -> new BadRequestServiceException(Constants.NOT_FOUND));
         school.setId(standardDTO.getSchoolId());
-        final Standard standard = new Standard();
-        standard.setName(standardDTO.getStandardName());
-        standard.setFees(standardDTO.getFees());
-        standard.setSchool(school);
-        standard.setCreatedBy(standardDTO.getCreatedBy());
-        standard.setUpdatedBy(standardDTO.getUpdatedBy());
-        return new ResponseDTO(Constants.CREATED, this.standardRepository.save(standard), HttpStatus.CREATED.getReasonPhrase());
+        final Standard standard = Standard.builder().name(standardDTO.getStandardName()).fees(standardDTO.getFees()).school(school).createdBy(standardDTO.getCreatedBy()).updatedBy(standardDTO.getUpdatedBy()).build();
+        return ResponseDTO.builder().message(Constants.CREATED).data(this.standardRepository.save(standard)).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO retrieveStandard() {
-        return new ResponseDTO(Constants.SUCCESS, this.standardRepository.findAll(), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieve() {
+        return ResponseDTO.builder().message(Constants.RETRIEVED).data(this.standardRepository.findAll()).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO retrieveStandardById(final String id) {
-        return new ResponseDTO(Constants.SUCCESS, this.standardRepository.findById(id).orElseThrow(() -> new BadRequestServiceException("Standard not found")), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieveById(final String id) {
+        return ResponseDTO.builder().message(Constants.RETRIEVED).data(this.standardRepository.findById(id).orElseThrow(() -> new BadRequestServiceException(Constants.NOT_FOUND))).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
     @Transactional
-    public ResponseDTO deletedStandardById(final String id) {
+    public ResponseDTO remove(final String id) {
         if (!this.standardRepository.existsById(id)) {
-            throw new BadRequestServiceException("Standard id not found");
+            throw new BadRequestServiceException(Constants.NOT_FOUND);
         }
         this.standardRepository.deleteById(id);
-        return new ResponseDTO(Constants.DELETED, id, HttpStatus.OK.getReasonPhrase());
+        return ResponseDTO.builder().message(Constants.REMOVED).data(id).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
     @Transactional
-    public ResponseDTO updatedStandardById(final String id, final StandardDTO standardDTO) {
-
-        final Standard existingStandard = this.standardRepository.findById(id).
-                orElseThrow(() -> new BadRequestServiceException("Standard not found"));
-        final School school = new School();
-        school.setId(standardDTO.getSchoolId());
+    public ResponseDTO update(final String id, final StandardDTO standardDTO) {
+        final Standard existingStandard = this.standardRepository.findById(id).orElseThrow(() -> new BadRequestServiceException(Constants.NOT_FOUND));
         if (standardDTO.getFees() != null) {
             existingStandard.setFees(standardDTO.getFees());
         }
         if (standardDTO.getStandardName() != null) {
             existingStandard.setName(standardDTO.getStandardName());
         }
-        if (standardDTO.getSchoolId() != null) {
-            existingStandard.setSchool(school);
-        }
         if (standardDTO.getUpdatedBy() != null) {
             existingStandard.setUpdatedBy(standardDTO.getUpdatedBy());
         }
-
-        return new ResponseDTO(Constants.SUCCESS, this.standardRepository.save(existingStandard), HttpStatus.OK.getReasonPhrase());
+        return ResponseDTO.builder().message(Constants.UPDATED).data(this.standardRepository.save(existingStandard)).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO findMaxFees() {
-        return new ResponseDTO(Constants.RETRIEVED, this.standardRepository.findMaxFees(), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieveMaxFees() {
+        return ResponseDTO.builder().message(Constants.RETRIEVED).data(this.standardRepository.findMaxFees()).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,27 +24,31 @@ public class StudentController {
 
     @PostMapping("/create")
     public ResponseDTO createStudent(@RequestBody final StudentDTO studentDTO) {
-    return  this.studentService.createStudent(studentDTO);
+        return this.studentService.create(studentDTO);
     }
 
-    @GetMapping("/retrieve/{id}")
+    @GetMapping("/retrieveById/{id}")
     public ResponseDTO retrieveStudentById(@PathVariable("id") final String id) {
-    return  this.studentService.retrieveStudentById(id);
+        return this.studentService.retrieveById(id);
     }
 
     @GetMapping("/retrieve")
     public ResponseDTO getAllStudent() {
-        return  this.studentService.retrieveStudent();
+        return this.studentService.retrieve();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/remove/{id}")
     public ResponseDTO deleteStudentById(@PathVariable("id") final String id) {
-       return  this.studentService.deleteStudentById(id);
+        return this.studentService.remove(id);
     }
 
     @PutMapping("/update/{id}")
     public ResponseDTO updateStudent(@PathVariable("id") String id, @RequestBody StudentDTO studentDTO) {
-        return this.studentService.updateStudentById(id,studentDTO);
+        return this.studentService.update(id, studentDTO);
     }
 
+    @GetMapping("/search")
+    public ResponseDTO searchStudents(@RequestParam(required = false) String searchTerm) {
+        return studentService.searchStudents(searchTerm);
+    }
 }

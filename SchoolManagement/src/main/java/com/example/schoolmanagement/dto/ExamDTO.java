@@ -12,5 +12,4 @@ public class ExamDTO {
     private String updatedBy;
     private String SubjectId;
 
-
 }

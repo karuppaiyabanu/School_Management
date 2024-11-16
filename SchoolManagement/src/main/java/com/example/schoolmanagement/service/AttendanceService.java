@@ -16,36 +16,30 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AttendanceService {
+
     private final AttendanceRepository attendanceRepository;
     private final StudentRepository studentRepository;
     private final SectionTeacherRepository sectionTeacherRepository;
 
-    public AttendanceService(AttendanceRepository attendanceRepository, StudentRepository studentRepository,
-                             SectionTeacherRepository sectionTeacherRepository) {
+    public AttendanceService(final AttendanceRepository attendanceRepository, final StudentRepository studentRepository, final SectionTeacherRepository sectionTeacherRepository) {
         this.attendanceRepository = attendanceRepository;
         this.studentRepository = studentRepository;
         this.sectionTeacherRepository = sectionTeacherRepository;
-
     }
 
     @Transactional
-    public ResponseDTO createAttendance(final AttendanceDTO attendanceDTO) {
-
-        final Student student = studentRepository.findById(attendanceDTO.getStudentId())
-                .orElseThrow(() -> new BadRequestServiceException("student not found"));
+    public ResponseDTO create(final AttendanceDTO attendanceDTO) {
+        final Student student = this.studentRepository.findById(attendanceDTO.getStudentId()).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
         student.setId(attendanceDTO.getStudentId());
-
-        final SectionTeacher sectionTeacherObj = sectionTeacherRepository.findById(attendanceDTO.getSectionTeacherId()).orElseThrow(() -> new BadRequestServiceException("not found"));
+        final SectionTeacher sectionTeacherObj = this.sectionTeacherRepository.findById(attendanceDTO.getSectionTeacherId()).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
         sectionTeacherObj.setId(attendanceDTO.getSectionTeacherId());
-        final Attendance attendanceObj = new Attendance();
-        attendanceObj.setStatus(attendanceDTO.getStatus());
-        attendanceObj.setStudent(student);
-        attendanceObj.setSectionTeacher(sectionTeacherObj);
-        return new ResponseDTO(Constants.SUCCESS, this.attendanceRepository.save(attendanceObj), HttpStatus.OK.getReasonPhrase());
+        final Attendance attendance = Attendance.builder().student(student).sectionTeacher(sectionTeacherObj).status(attendanceDTO.getStatus()).build();
+
+        return ResponseDTO.builder().message(Constants.CREATED).data(this.attendanceRepository.save(attendance)).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO getAllStudentsAttendance() {
-        return new ResponseDTO(Constants.SUCCESS, this.attendanceRepository.findAll(), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieve() {
+        return ResponseDTO.builder().message(Constants.RETRIEVED).data(this.attendanceRepository.findAll()).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
 }

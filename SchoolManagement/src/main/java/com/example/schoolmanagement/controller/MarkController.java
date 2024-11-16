@@ -13,21 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/mark")
 public class MarkController {
+
     private final MarkService markService;
 
+    MarkService m;
     private MarkController(final MarkService markService) {
         this.markService = markService;
     }
 
     @PostMapping("/create")
-    public ResponseDTO createMark(@RequestBody final MarkDTO markDTO) {
-        return this.markService.createMark(markDTO);
+    public ResponseDTO create(@RequestBody final MarkDTO markDTO) {
+        System.out.println(m.create(markDTO));
+        return this.markService.create(markDTO);
     }
 
     @GetMapping("/highest/{studentId}")
-    public  ResponseDTO findStudentMarks(@PathVariable ("studentId") String id){
-        return this.markService.retrieveMarkForStudent(id);
+    public ResponseDTO retrieveStudentMark(@PathVariable("studentId") final String id) {
+        return this.markService.retrieveStudentMark(id);
     }
-
 
 }

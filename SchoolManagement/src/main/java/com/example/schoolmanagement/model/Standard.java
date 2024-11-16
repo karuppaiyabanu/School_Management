@@ -7,7 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,8 +18,12 @@ import java.time.Instant;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "standard")
 public class Standard {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -24,7 +31,6 @@ public class Standard {
     private String name;
     @Column(name = "fees")
     private Double fees;
-
     @CurrentTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
@@ -35,7 +41,7 @@ public class Standard {
     private Instant updatedAt;
     @Column(name = "updated_by")
     private String updatedBy;
-
     @ManyToOne
     private School school;
+
 }

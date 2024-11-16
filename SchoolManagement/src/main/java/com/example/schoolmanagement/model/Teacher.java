@@ -18,28 +18,29 @@ import java.time.Instant;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "teacher")
 public class Teacher {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     @Column(name = "name")
     private String name;
-    @Column(name = "subject")
+    @Column(name = "known_subject")
     private String knownSubject;
     @Column(name = "gender")
     private String gender;
     @Column(name = "address")
     private String address;
-    @Column(name = "mobile_number")
+    @Column(name = "phone")
     private String phone;
     @Column(name = "email")
     private String email;
-
     @ManyToOne
     private School school;
-
     @CurrentTimestamp
     @Column(name = "created_at")
     private Instant createdAt;

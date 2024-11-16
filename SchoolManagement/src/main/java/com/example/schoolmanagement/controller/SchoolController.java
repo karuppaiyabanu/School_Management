@@ -3,8 +3,6 @@ package com.example.schoolmanagement.controller;
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.SchoolDTO;
 import com.example.schoolmanagement.service.SchoolService;
-import com.example.schoolmanagement.util.Constants;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,44 +20,34 @@ public class SchoolController {
 
     private final SchoolService schoolService;
 
-    private SchoolController(final SchoolService schoolService) {
+    public SchoolController(final SchoolService schoolService) {
         this.schoolService = schoolService;
     }
 
     @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseDTO create(@RequestBody final SchoolDTO schoolDTO) {
-        return this.schoolService.createSchool(schoolDTO);
+        return this.schoolService.create(schoolDTO);
     }
 
     @GetMapping("/retrieve")
     public ResponseDTO retrieve() {
-        return this.schoolService.retrieveSchool();
+        return this.schoolService.retrieve();
     }
 
-    @GetMapping("/retrieve/{id}")
+    @GetMapping("/retrieveById/{id}")
     public ResponseDTO retrieveById(@PathVariable("id") final String id) {
-        return this.schoolService.retrieveSchoolById(id);
+        return this.schoolService.retrieveById(id);
     }
 
     @DeleteMapping("/remove/{id}")
-    public ResponseDTO removeById(@PathVariable("id") final String id) {
-        return this.schoolService.removeSchoolById(id);
+    public ResponseDTO remove(@PathVariable("id") final String id) {
+        return this.schoolService.remove(id);
     }
 
     @PutMapping("/update/{id}")
     public ResponseDTO updateById(@RequestBody final SchoolDTO schoolDTO, @PathVariable("id") final String id) {
-        return this.schoolService.updateSchoolById(id, schoolDTO);
+        return this.schoolService.update(id, schoolDTO);
     }
-
-    @GetMapping("/search")
-    public ResponseDTO searchSchool(@RequestParam(required = false) String search,
-                                    @RequestParam(required = false) Integer page,
-                                    @RequestParam(required = false) Integer size,
-                                    @RequestParam(required = false, defaultValue = "name") String sortField,
-                                    @RequestParam(required = false, defaultValue = "asc") String sortDirection) {
-        Page<SchoolDTO> SchoolDTOS = this.schoolService.searchSchool(search, page, size, sortField, sortDirection);
-        return new ResponseDTO(Constants.RETRIEVED, SchoolDTOS, HttpStatus.OK.getReasonPhrase());
-    }
-
 
 }

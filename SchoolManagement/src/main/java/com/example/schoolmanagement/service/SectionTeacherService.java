@@ -20,9 +20,7 @@ public class SectionTeacherService {
     private final TeacherRepository teacherRepository;
     private final SectionRepository sectionRepository;
 
-    public SectionTeacherService(SectionTeacherRepository sectionTeacherRepository,
-                                 TeacherRepository teacherRepository,
-                                 SectionRepository sectionRepository) {
+    public SectionTeacherService(final SectionTeacherRepository sectionTeacherRepository, final TeacherRepository teacherRepository, final SectionRepository sectionRepository) {
         this.sectionTeacherRepository = sectionTeacherRepository;
         this.teacherRepository = teacherRepository;
         this.sectionRepository = sectionRepository;
@@ -30,38 +28,29 @@ public class SectionTeacherService {
 
     @Transactional
     public ResponseDTO create(final SectionTeacherDTO sectionTeacherDTO) {
-        final Section section = sectionRepository.findById(sectionTeacherDTO.getSection()).orElseThrow(() -> new BadRequestServiceException("section not found"));
-        final Teacher teacher = teacherRepository.findById(sectionTeacherDTO.getTeacherId()).orElseThrow(() -> new BadRequestServiceException("Teacher not found"));
-
+        final Section section = this.sectionRepository.findById(sectionTeacherDTO.getSection()).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
         section.setId(sectionTeacherDTO.getSection());
+        final Teacher teacher = this.teacherRepository.findById(sectionTeacherDTO.getTeacherId()).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
         teacher.setId(sectionTeacherDTO.getTeacherId());
-
-        SectionTeacher sectionTeacher = new SectionTeacher();
-        sectionTeacher.setTeacher(teacher);
-        sectionTeacher.setSection(section);
-        sectionTeacher.setCreatedBy(sectionTeacherDTO.getCreatedBy());
-        sectionTeacher.setUpdatedBy(sectionTeacherDTO.getUpdatedBy());
-
-        return new ResponseDTO(Constants.CREATED, this.sectionTeacherRepository.save(sectionTeacher), HttpStatus.CREATED.getReasonPhrase());
+        final SectionTeacher sectionTeacher = SectionTeacher.builder().teacher(teacher).section(section).createdBy(sectionTeacherDTO.getCreatedBy()).updatedBy(sectionTeacherDTO.getUpdatedBy()).build();
+        return ResponseDTO.builder().message(Constants.CREATED).data(this.sectionTeacherRepository.save(sectionTeacher)).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO retrieveSectionTeacher() {
-        return new ResponseDTO(Constants.SUCCESS, this.sectionTeacherRepository.findAll(), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieve() {
+        return ResponseDTO.builder().message(Constants.SUCCESS).data(this.sectionTeacherRepository.findAll()).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
     @Transactional
-    public ResponseDTO updateSectionTeacher(final String id, final SectionTeacherDTO sectionTeacherDTO) {
-        final SectionTeacher sectionTeacher = this.sectionTeacherRepository.findById(id).
-                orElseThrow(() -> new BadRequestServiceException("SectionTeacher id not found"));
-         Teacher teacher = Teacher.builder().id(sectionTeacherDTO.getTeacherId()).build();
+    public ResponseDTO update(final String id, final SectionTeacherDTO sectionTeacherDTO) {
+        final SectionTeacher sectionTeacher = this.sectionTeacherRepository.findById(id).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
+        final Teacher teacher = Teacher.builder().id(sectionTeacherDTO.getTeacherId()).build();
         teacher.setId(sectionTeacherDTO.getTeacherId());
         final Section section = new Section();
         section.setId(sectionTeacherDTO.getSection());
         sectionTeacher.setUpdatedBy(sectionTeacherDTO.getUpdatedBy());
         sectionTeacher.setTeacher(teacher);
         sectionTeacher.setSection(section);
-
-        return new ResponseDTO(Constants.SUCCESS, this.sectionTeacherRepository.save(sectionTeacher), HttpStatus.OK.getReasonPhrase());
+        return ResponseDTO.builder().message(Constants.SUCCESS).data(this.sectionTeacherRepository.save(sectionTeacher)).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
 }

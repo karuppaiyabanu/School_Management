@@ -8,14 +8,15 @@ import com.example.schoolmanagement.model.Teacher;
 import com.example.schoolmanagement.repository.SchoolRepository;
 import com.example.schoolmanagement.repository.TeacherRepository;
 import com.example.schoolmanagement.util.Constants;
-import com.example.schoolmanagement.util.EmailValidator;
+import com.example.schoolmanagement.util.UtilService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
+
+import java.util.InputMismatchException;
+import java.util.Optional;
 
 @Service
-@Validated
 public class TeacherService {
     private final TeacherRepository teacherRepository;
     private final SchoolRepository schoolRepository;
@@ -26,42 +27,36 @@ public class TeacherService {
     }
 
     @Transactional
-    public ResponseDTO createTeacher(final TeacherDTO teacherDTO) {
-        final School school = this.schoolRepository.findById(teacherDTO.getSchoolId()).orElseThrow(() -> new BadRequestServiceException("School not found"));
+    public ResponseDTO create(final TeacherDTO teacherDTO) {
+        final School school = this.schoolRepository.findById(teacherDTO.getSchoolId()).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
+        validateTeacherDTO(teacherDTO);
+        final Teacher teacher = Teacher.builder().name(teacherDTO.getName()).gender(teacherDTO.getGender()).address(teacherDTO.getAddress()).phone(teacherDTO.getPhone()).email(teacherDTO.getEmail()).knownSubject(teacherDTO.getKnownSubject()).school(school).createdBy(teacherDTO.getCreatedBy()).updatedBy(teacherDTO.getUpdatedBy()).build();
+        return ResponseDTO.builder().message(Constants.CREATED).data(this.teacherRepository.save(teacher)).statusValue(HttpStatus.CREATED.getReasonPhrase()).build();
+    }
 
-        if (!EmailValidator.emailValidation(teacherDTO.getEmail())) {
-            return new ResponseDTO("failed", teacherDTO, "Invalid email format");
+    private TeacherDTO validateTeacherDTO(final TeacherDTO teacherDTO) {
+        if (!UtilService.emailValidation(teacherDTO.getEmail())) {
+            throw new InputMismatchException(Constants.REGEX_MISS_MATCH);
         }
-        if (teacherRepository.findByEmail(teacherDTO.getEmail())) {
-            return new ResponseDTO("failed", teacherDTO, "Email already exists");
+        Optional<Teacher> teacher = this.teacherRepository.findByEmail(teacherDTO.getEmail());
+        if (teacher.isPresent()) {
+            throw new BadRequestServiceException(Constants.EXISTING_EMAIL);
         }
-            final Teacher teacher = Teacher.builder()
-                    .name(teacherDTO.getName())
-                    .gender(teacherDTO.getGender())
-                    .knownSubject(teacherDTO.getKnownSubject())
-                    .address(teacherDTO.getAddress())
-                    .phone(teacherDTO.getPhone())
-                    .email(teacherDTO.getEmail())
-                    .knownSubject(teacherDTO.getKnownSubject())
-                    .school(school)
-                    .createdBy(teacherDTO.getCreatedBy())
-                    .updatedBy(teacherDTO.getUpdatedBy())
-                    .build();
-            return new ResponseDTO(Constants.CREATED, this.teacherRepository.save(teacher), HttpStatus.CREATED.getReasonPhrase());
+        return teacherDTO;
     }
 
-    public ResponseDTO retrieveTeacherById(final String id) {
-        return new ResponseDTO(Constants.SUCCESS, this.teacherRepository.findById(id).orElseThrow(() -> new BadRequestServiceException("Teacher not found")), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieveById(final String id) {
+        return ResponseDTO.builder().message(Constants.SUCCESS).data(this.teacherRepository.findById(id).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND))).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO retrieveTeacher() {
-        return new ResponseDTO(Constants.SUCCESS, this.teacherRepository.findAll(), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieve() {
+        return ResponseDTO.builder().message(Constants.RETRIEVED).data(this.teacherRepository.findByTeacherName()).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO updateTeacher(final String id, final TeacherDTO teacherDTO) {
-        Teacher existingTeacher = this.teacherRepository.findById(id).orElseThrow(
-                () -> new BadRequestServiceException("Teacher Not found."));
-        final School school = new School();
+    @Transactional
+    public ResponseDTO update(final String id, final TeacherDTO teacherDTO) {
+        final Teacher existingTeacher = this.teacherRepository.findById(id).orElseThrow(() -> new BadRequestServiceException(Constants.ID_DOES_NOT_EXIST));
+        final School school = School.builder().build();
         school.setId(teacherDTO.getSchoolId());
         if (teacherDTO.getName() != null) {
             existingTeacher.setName(teacherDTO.getName());
@@ -87,15 +82,16 @@ public class TeacherService {
         if (teacherDTO.getUpdatedBy() != null) {
             existingTeacher.setUpdatedBy(teacherDTO.getUpdatedBy());
         }
-        return new ResponseDTO(Constants.SUCCESS, this.teacherRepository.save(existingTeacher), HttpStatus.OK.getReasonPhrase());
+        return ResponseDTO.builder().message(Constants.UPDATED).data(this.teacherRepository.save(existingTeacher)).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO deleteTeacherById(final String id) {
+    @Transactional
+    public ResponseDTO remove(final String id) {
         if (!this.teacherRepository.existsById(id)) {
-            throw new BadRequestServiceException("Teacher id not found");
+            throw new BadRequestServiceException(Constants.REMOVED);
         }
         this.teacherRepository.deleteById(id);
-        return new ResponseDTO("Successfully deleted", id, HttpStatus.OK.getReasonPhrase());
+        return ResponseDTO.builder().message(Constants.REMOVED).data(id).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
 }

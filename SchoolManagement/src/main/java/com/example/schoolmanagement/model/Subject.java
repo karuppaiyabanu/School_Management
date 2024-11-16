@@ -8,7 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,19 +19,19 @@ import java.time.Instant;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "subject")
 public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
     @ManyToOne
     private Standard standard;
-
     @Column(name = "name")
     private String name;
-
     @CurrentTimestamp
     @Column(name = "created_at")
     private Instant createdAt;

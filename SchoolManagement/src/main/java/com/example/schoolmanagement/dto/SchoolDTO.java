@@ -10,4 +10,5 @@ public class SchoolDTO {
     private String phone;
     private String createdBy;
     private String updatedBy;
+
 }

@@ -16,46 +16,42 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ExamService {
+
     private final ExamRepository examRepository;
     private final StandardRepository standardRepository;
-    private  final SubjectRepository subjectRepository;
-    public ExamService(final ExamRepository examRepository, final StandardRepository standardRepository,final SubjectRepository subjectRepository) {
+    private final SubjectRepository subjectRepository;
+
+    public ExamService(final ExamRepository examRepository, final StandardRepository standardRepository, final SubjectRepository subjectRepository) {
         this.examRepository = examRepository;
         this.standardRepository = standardRepository;
-        this.subjectRepository=subjectRepository;
+        this.subjectRepository = subjectRepository;
     }
 
     @Transactional
-    public ResponseDTO createExam(final ExamDTO examDTO) {
-        Standard standard = this.standardRepository.findById(examDTO.getStandardId()).orElseThrow(() -> new BadRequestServiceException("Standard not found"));
+    public ResponseDTO create(final ExamDTO examDTO) {
+        final Standard standard = this.standardRepository.findById(examDTO.getStandardId()).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
         standard.setId(examDTO.getStandardId());
-        Subject subject=this.subjectRepository.findById(examDTO.getSubjectId()).orElseThrow(() -> new BadRequestServiceException("Subject not found"));
-        Exam exam = new Exam();
-        exam.setStandard(standard);
-        exam.setSubject(subject);
-        exam.setName(examDTO.getName());
-        exam.setDate(examDTO.getDate());
-        exam.setCreatedBy(examDTO.getCreatedBy());
-        exam.setUpdatedBy(examDTO.getUpdatedBy());
-        return new ResponseDTO(Constants.CREATED, this.examRepository.save(exam), HttpStatus.CREATED.getReasonPhrase());
+        final Subject subject = this.subjectRepository.findById(examDTO.getSubjectId()).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
+        subject.setId(examDTO.getSubjectId());
+        final Exam exam = Exam.builder().standard(standard).subject(subject).name(examDTO.getName()).date(examDTO.getDate()).createdBy(examDTO.getCreatedBy()).updatedBy(examDTO.getUpdatedBy()).build();
+        return ResponseDTO.builder().message(Constants.CREATED).data(exam).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO retrieveExam() {
-        return new ResponseDTO(Constants.SUCCESS, this.examRepository.findAll(), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieve() {
+        return ResponseDTO.builder().message(Constants.RETRIEVED).data(this.examRepository.findAll()).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO retrieveExamById(final String id) {
-        return new ResponseDTO(Constants.SUCCESS, this.examRepository.findById(id).orElseThrow(() -> new BadRequestServiceException("Exam not found")), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieveById(final String id) {
+        final Exam exam = this.examRepository.findById(id).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
+        return ResponseDTO.builder().message(Constants.RETRIEVED).data(exam).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public  ResponseDTO updateExam(final  String id,final  ExamDTO examDTO){
-       final Exam existingExam=this.examRepository.findById(id)
-                .orElseThrow(() -> new BadRequestServiceException("Exam not found"));
-       if (examDTO.getDate()!=null){
+    public ResponseDTO update(final String id, final ExamDTO examDTO) {
+        final Exam existingExam = this.examRepository.findById(id).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
+        if (examDTO.getDate() != null) {
             existingExam.setDate(examDTO.getDate());
-       }
-        this.examRepository.save(existingExam);
-        return new ResponseDTO(Constants.SUCCESS, existingExam, HttpStatus.OK.getReasonPhrase());
-
+        }
+        return ResponseDTO.builder().message(Constants.UPDATED).data(existingExam).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
+
 }

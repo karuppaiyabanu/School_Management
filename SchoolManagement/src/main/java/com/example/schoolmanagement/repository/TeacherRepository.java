@@ -1,14 +1,20 @@
 package com.example.schoolmanagement.repository;
 
 import com.example.schoolmanagement.model.Teacher;
+import com.example.schoolmanagement.model.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface TeacherRepository extends JpaRepository<Teacher,String> {
+import java.util.List;
+import java.util.Optional;
 
-    @Query(value = "SELECT email FROM teacher WHERE email=:search",nativeQuery = true)
-    Boolean findByEmail (@Param("search") String email);
+@Repository
+public interface TeacherRepository extends JpaRepository<Teacher, String> {
+
+    Optional<Teacher> findByEmail(String email);
+
+    @Query(value = "SELECT * FROM teacher ORDER BY name ASC", nativeQuery = true)
+    List<Teacher> findByTeacherName();
+
 }

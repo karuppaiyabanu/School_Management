@@ -13,13 +13,14 @@ import com.example.schoolmanagement.util.Constants;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class MarkService {
+
     private final MarkRepository markRepository;
     private final StudentRepository studentRepository;
     private final ExamRepository examRepository;
+
 
     public MarkService(final MarkRepository markRepository, final StudentRepository studentRepository, final ExamRepository examRepository) {
         this.markRepository = markRepository;
@@ -28,28 +29,20 @@ public class MarkService {
     }
 
     @Transactional
-    public ResponseDTO createMark(final MarkDTO markDTO) {
-        final Student student = studentRepository.findById(markDTO.getStudentId()).orElseThrow(() -> new BadRequestServiceException("student not found"));
+    public ResponseDTO create(final MarkDTO markDTO) {
+        final Student student = this.studentRepository.findById(markDTO.getStudentId()).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
         student.setId(markDTO.getStudentId());
-        Exam exam = examRepository.findById(markDTO.getExamId()).orElseThrow(() -> new BadRequestServiceException("Exam  not found"));
+        final Exam exam = this.examRepository.findById(markDTO.getExamId()).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
         exam.setId(markDTO.getExamId());
-        final Mark mark = new Mark();
-        mark.setStudent(student);
-        mark.setMark(markDTO.getMark());
-        mark.setExam(exam);
-        return new ResponseDTO(Constants.CREATED, this.markRepository.save(mark), HttpStatus.CREATED.getReasonPhrase());
+        final Mark mark = Mark.builder().student(student).exam(exam).mark(markDTO.getMark()).build();
+        return ResponseDTO.builder().message(Constants.CREATED).data(this.markRepository.save(mark)).statusValue(HttpStatus.CREATED.getReasonPhrase()).build();
     }
 
-    public ResponseDTO retrieveMarkForStudent(final String studentId) {
-        List<Mark> marks = markRepository.findHighestMarkByStudent(studentId);
-        Mark highestMark = marks.isEmpty() ? null : marks.get(0);
-        return new ResponseDTO(
-                Constants.RETRIEVED,
-                highestMark != null ? highestMark : "No marks found for this student",
-                HttpStatus.OK.getReasonPhrase()
-        );
+    public ResponseDTO retrieveStudentMark(final String studentId) {
+        Mark marks = this.markRepository.findMarkByStudent(studentId);
+        if (marks != null) {
+            return ResponseDTO.builder().message(Constants.RETRIEVED).data(marks).statusValue(HttpStatus.OK.getReasonPhrase()).build();
+        }
+        return ResponseDTO.builder().message(studentId + Constants.ID_DOES_NOT_EXIST).build();
     }
-
-
-
 }

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface StandardRepository extends JpaRepository<Standard,String> {
+public interface StandardRepository extends JpaRepository<Standard, String> {
 
-   @Query(value = "SELECT MAX(FEES) FROM STANDARD",nativeQuery = true)
+    @Query(value = "SELECT MAX(FEES) FROM STANDARD", nativeQuery = true)
     Double findMaxFees();
 
 }

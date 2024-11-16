@@ -14,48 +14,45 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SubjectService {
+
     private final SubjectRepository subjectRepository;
     private final StandardRepository standardRepository;
 
-    public SubjectService(SubjectRepository subjectRepository, StandardRepository standardRepository) {
+    public SubjectService(final SubjectRepository subjectRepository, final StandardRepository standardRepository) {
         this.subjectRepository = subjectRepository;
         this.standardRepository = standardRepository;
     }
 
     @Transactional
-    public ResponseDTO createSubjectToStandard(final SubjectDTO subjectDTO) {
-
-        final Standard standard = standardRepository.findById(subjectDTO.getStandard()).orElseThrow(() -> new BadRequestServiceException("Standard not found"));
+    public ResponseDTO create(final SubjectDTO subjectDTO) {
+        final Standard standard = this.standardRepository.findById(subjectDTO.getStandard()).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
         standard.setId(subjectDTO.getStandard());
-        Subject subject = new Subject();
-        subject.setStandard(standard);
-        subject.setName(subjectDTO.getName());
-        subject.setCreatedBy(subjectDTO.getCreatedBy());
-        subject.setUpdatedBy(subjectDTO.getUpdatedBy());
-        return new ResponseDTO(Constants.CREATED, this.subjectRepository.save(subject), HttpStatus.CREATED.getReasonPhrase());
+        final Subject subject = Subject.builder().standard(standard).name(subjectDTO.getName()).createdBy(subjectDTO.getCreatedBy()).updatedBy(subjectDTO.getUpdatedBy()).build();
+        return ResponseDTO.builder().message(Constants.CREATED).data(this.subjectRepository.save(subject)).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO retrieveSubject() {
-        return new ResponseDTO(Constants.SUCCESS, this.subjectRepository.findAll(), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieve() {
+        return ResponseDTO.builder().message(Constants.SUCCESS).data(this.subjectRepository.findAll()).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO updateSubjectToStandard(final String id, final SubjectDTO subjectDTO) {
-        Subject existingSubject = this.subjectRepository.findById(id).orElseThrow(
-                () -> new BadRequestServiceException("Subject Not found."));
+    @Transactional
+    public ResponseDTO update(final String id, final SubjectDTO subjectDTO) {
+        Subject existingSubject = this.subjectRepository.findById(id).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
         if (subjectDTO.getName() != null) {
             existingSubject.setName(subjectDTO.getName());
         }
         if (subjectDTO.getUpdatedBy() != null) {
             existingSubject.setUpdatedBy(subjectDTO.getUpdatedBy());
         }
-        return new ResponseDTO(Constants.SUCCESS, this.subjectRepository.save(existingSubject), HttpStatus.OK.getReasonPhrase());
+        return ResponseDTO.builder().message(Constants.SUCCESS).data(this.subjectRepository.save(existingSubject)).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
 
-    public ResponseDTO deleteSubjectById(final String id) {
+    public ResponseDTO remove(final String id) {
         if (!this.subjectRepository.existsById(id)) {
-            throw new BadRequestServiceException("Teacher id not found");
+            throw new BadRequestServiceException(Constants.NO_DATA_FOUND);
         }
         this.subjectRepository.deleteById(id);
-        return new ResponseDTO("Successfully deleted", id, HttpStatus.OK.getReasonPhrase());
+        return ResponseDTO.builder().message(Constants.DELETED).data(id).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }
+
 }

@@ -7,53 +7,53 @@ import com.example.schoolmanagement.model.School;
 import com.example.schoolmanagement.repository.SchoolRepository;
 import com.example.schoolmanagement.util.Constants;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Service
+@Component
 public class SchoolService {
-    private  final  SchoolRepository schoolRepository;
 
-    public SchoolService(final SchoolRepository schoolRepository) {
+    private final SchoolRepository schoolRepository;
+    private  final  JwtService jwtService;
+    public SchoolService(final SchoolRepository schoolRepository,final JwtService jwtService) {
         this.schoolRepository = schoolRepository;
+        this.jwtService=jwtService;
     }
+
+
 
     @Transactional
-    public ResponseDTO createSchool(final SchoolDTO schoolDTO) {
-        final School school = new School();
-        school.setName(schoolDTO.getName());
-        school.setAddress(schoolDTO.getAddress());
-        school.setPhone(schoolDTO.getPhone());
-        school.setCreatedBy(schoolDTO.getCreatedBy());
-        school.setUpdatedBy(schoolDTO.getUpdatedBy());
-        return new ResponseDTO(Constants.CREATED, this.schoolRepository.save(school), HttpStatus.CREATED.getReasonPhrase());
+    public ResponseDTO create(final SchoolDTO schoolDTO) {
+        final School school = School.builder()
+                .name(schoolDTO.getName())
+                .address(schoolDTO.getAddress())
+                .phone(schoolDTO.getPhone())
+                .createdBy(schoolDTO.getCreatedBy())
+                .updatedBy(schoolDTO.getUpdatedBy()).build();
+        return new ResponseDTO(Constants.CREATED, this.schoolRepository.save(school), HttpStatus.CREATED.name());
     }
 
-    public ResponseDTO retrieveSchool() {
+    public ResponseDTO retrieve() {
         return new ResponseDTO(Constants.SUCCESS, this.schoolRepository.findAll(), HttpStatus.OK.getReasonPhrase());
     }
 
-    public ResponseDTO retrieveSchoolById(final String schoolId) {
-        return new ResponseDTO(Constants.SUCCESS, this.schoolRepository.findById(schoolId).orElseThrow(() -> new BadRequestServiceException("School not found")), HttpStatus.OK.getReasonPhrase());
+    public ResponseDTO retrieveById(final String schoolId) {
+        return new ResponseDTO(Constants.SUCCESS, this.schoolRepository.findById(schoolId).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND)), HttpStatus.BAD_REQUEST.name());
     }
 
     @Transactional
-    public ResponseDTO removeSchoolById(final String schoolId) {
+    public ResponseDTO remove(final String schoolId) {
         if (!this.schoolRepository.existsById(schoolId)) {
-            throw new BadRequestServiceException("school id not found");
+            throw new BadRequestServiceException(Constants.NO_DATA_FOUND);
         }
         this.schoolRepository.deleteById(schoolId);
-        return new ResponseDTO("School Successfully deleted", schoolId, HttpStatus.OK.getReasonPhrase());
+        return new ResponseDTO(Constants.REMOVED, schoolId, HttpStatus.OK.getReasonPhrase());
     }
 
     @Transactional
-    public ResponseDTO updateSchoolById(final String id, final SchoolDTO schoolDTO) {
-       final School existingSchool = this.schoolRepository.findById(id)
-                .orElseThrow(() -> new BadRequestServiceException("School not found"));
+    public ResponseDTO update(final String id, final SchoolDTO schoolDTO) {
+        final School existingSchool = this.schoolRepository.findById(id).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
 
         if (schoolDTO.getName() != null) {
             existingSchool.setName(schoolDTO.getName());
@@ -67,29 +67,7 @@ public class SchoolService {
         if (schoolDTO.getUpdatedBy() != null) {
             existingSchool.setUpdatedBy(schoolDTO.getUpdatedBy());
         }
-        return new ResponseDTO(Constants.SUCCESS, this.schoolRepository.save(existingSchool), HttpStatus.OK.getReasonPhrase());
-    }
-
-
-    private SchoolDTO convertToSchoolDTO(final School school) {
-        SchoolDTO schoolDTO = new SchoolDTO();
-        schoolDTO.setName(school.getName());
-        schoolDTO.setAddress(school.getAddress());
-        schoolDTO.setPhone(school.getPhone());
-        schoolDTO.setCreatedBy(school.getCreatedBy());
-        schoolDTO.setUpdatedBy(school.getUpdatedBy());
-        return schoolDTO;
-    }
-
-    @Transactional
-    public Page<SchoolDTO> searchSchool(String search, Integer page, Integer size, String sortField, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
-        Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ? size : 5, sort);
-        final Page<School> school = this.schoolRepository.searchSchool(search, pageable);
-        if (school.isEmpty()) {
-            throw new BadRequestServiceException("No data found for the given search criteria");
-        }
-        return school.map(this::convertToSchoolDTO);
+        return new ResponseDTO(Constants.UPDATED, this.schoolRepository.save(existingSchool), HttpStatus.OK.getReasonPhrase());
     }
 
 }

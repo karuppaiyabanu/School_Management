@@ -14,27 +14,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/exam")
 public class ExamController {
+
     private final ExamService examService;
 
-    public ExamController(ExamService examService) {
+    public ExamController(final ExamService examService) {
         this.examService = examService;
     }
 
     @PostMapping("/create")
-    public ResponseDTO createExam(@RequestBody ExamDTO examDTO) {
-        return this.examService.createExam(examDTO);
+    public ResponseDTO create(@RequestBody final ExamDTO examDTO) {
+        return this.examService.create(examDTO);
     }
 
-    @GetMapping("/retrieve")
-    public  ResponseDTO retrieveExam(){
-        return this.examService.retrieveExam();
+    @GetMapping("/retrieveById")
+    public ResponseDTO retrieve() {
+        return this.examService.retrieve();
     }
-    @GetMapping("/retrieve/{id}")
-    public  ResponseDTO retrieveExamById(@PathVariable("id") final  String id){
-        return this.examService.retrieveExamById(id);
+
+    @GetMapping("/retrieveById/{id}")
+    public ResponseDTO retrieveById(@PathVariable("id") final String id) {
+        return this.examService.retrieveById(id);
     }
+
     @PutMapping("/update/{id}")
-    public  ResponseDTO updateExam(@PathVariable("id") final String id, final  ExamDTO examDTO ){
-        return  this.examService.updateExam(id,examDTO);
+    public ResponseDTO update(@PathVariable("id") final String id, final ExamDTO examDTO) {
+        return this.examService.update(id, examDTO);
     }
+
 }

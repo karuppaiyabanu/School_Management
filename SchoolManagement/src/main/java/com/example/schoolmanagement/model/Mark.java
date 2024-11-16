@@ -7,7 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,12 +18,15 @@ import java.time.Instant;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "mark")
 public class Mark {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
     @ManyToOne
     private Student student;
     @Column(name = "mark")
@@ -37,4 +43,5 @@ public class Mark {
     private Instant updatedAt;
     @Column(name = "updated_by")
     private String updatedBy;
+
 }

@@ -15,31 +15,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/subject")
 public class SubjectController {
+
     private final SubjectService subjectService;
 
-    private SubjectController(SubjectService subjectService) {
+    private SubjectController(final SubjectService subjectService) {
         this.subjectService = subjectService;
     }
 
     @PostMapping("/create")
-    public ResponseDTO createSubject(@RequestBody final SubjectDTO subjectDTO) {
-        return this.subjectService.createSubjectToStandard(subjectDTO);
+    public ResponseDTO create(@RequestBody final SubjectDTO subjectDTO) {
+        return this.subjectService.create(subjectDTO);
     }
 
     @GetMapping("/retrieve")
-    public ResponseDTO retrieveSubject() {
-        return this.subjectService.retrieveSubject();
+    public ResponseDTO retrieve() {
+        return this.subjectService.retrieve();
     }
 
     @PutMapping("/update/{id}")
-    public ResponseDTO updateSubjectById(@RequestBody final SubjectDTO subjectDTO, @PathVariable("id") String id) {
-        return this.subjectService.updateSubjectToStandard(id, subjectDTO);
+    public ResponseDTO update(@RequestBody final SubjectDTO subjectDTO, @PathVariable("id") final String id) {
+        return this.subjectService.update(id, subjectDTO);
     }
 
     @DeleteMapping("/remove/{id}")
-    public ResponseDTO deleteSubjectById(@PathVariable("id") String id) {
-        return this.subjectService.deleteSubjectById(id);
+    public ResponseDTO remove(@PathVariable("id") final String id) {
+        return this.subjectService.remove(id);
     }
-
 
 }

@@ -7,13 +7,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import java.time.Instant;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "exam")
 public class Exam {
 
@@ -26,10 +33,8 @@ public class Exam {
     private String date;
     @ManyToOne
     private Standard standard;
-
     @ManyToOne
     private Subject subject;
-
     @CurrentTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
@@ -40,6 +45,5 @@ public class Exam {
     private Instant updatedAt;
     @Column(name = "updated_by")
     private String updatedBy;
-
 
 }
