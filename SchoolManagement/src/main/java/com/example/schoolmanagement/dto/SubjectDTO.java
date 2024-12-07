@@ -7,7 +7,5 @@ public class SubjectDTO {
 
     private String standard;
     private String name;
-    private String createdBy;
-    private String updatedBy;
 
 }

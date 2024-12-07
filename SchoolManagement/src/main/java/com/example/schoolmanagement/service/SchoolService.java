@@ -2,59 +2,54 @@ package com.example.schoolmanagement.service;
 
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.SchoolDTO;
-import com.example.schoolmanagement.exception.BadRequestServiceException;
+import com.example.schoolmanagement.exception.ResourceNotFoundException;
 import com.example.schoolmanagement.model.School;
 import com.example.schoolmanagement.repository.SchoolRepository;
+import com.example.schoolmanagement.util.AuthenticationService;
 import com.example.schoolmanagement.util.Constants;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.stereotype.Service;
 
-@Component
+import java.util.Optional;
+
+@Service
 public class SchoolService {
 
-    private final SchoolRepository schoolRepository;
-    private  final  JwtService jwtService;
-    public SchoolService(final SchoolRepository schoolRepository,final JwtService jwtService) {
-        this.schoolRepository = schoolRepository;
-        this.jwtService=jwtService;
-    }
-
+    @Autowired
+    private SchoolRepository schoolRepository;
+    @Autowired
+    private AuthenticationService authentication;
 
 
     @Transactional
     public ResponseDTO create(final SchoolDTO schoolDTO) {
-        final School school = School.builder()
-                .name(schoolDTO.getName())
-                .address(schoolDTO.getAddress())
-                .phone(schoolDTO.getPhone())
-                .createdBy(schoolDTO.getCreatedBy())
-                .updatedBy(schoolDTO.getUpdatedBy()).build();
-        return new ResponseDTO(Constants.CREATED, this.schoolRepository.save(school), HttpStatus.CREATED.name());
+        final School school = School.builder().name(schoolDTO.getName()).address(schoolDTO.getAddress()).phone(schoolDTO.getPhone()).createdBy(authentication.getUserName()).updatedBy(authentication.getUserName()).build();
+        return ResponseDTO.builder().message(Constants.CREATED).data(school).statusValue(HttpStatus.CREATED.name()).build();
     }
 
     public ResponseDTO retrieve() {
-        return new ResponseDTO(Constants.SUCCESS, this.schoolRepository.findAll(), HttpStatus.OK.getReasonPhrase());
+        return ResponseDTO.builder().message(Constants.SUCCESS).data(this.schoolRepository.findAll()).statusValue(HttpStatus.OK.name()).build();
     }
 
-    public ResponseDTO retrieveById(final String schoolId) {
-        return new ResponseDTO(Constants.SUCCESS, this.schoolRepository.findById(schoolId).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND)), HttpStatus.BAD_REQUEST.name());
+    public ResponseDTO retrieveById(final String id) {
+        Optional<School> findSchool = Optional.ofNullable(this.schoolRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Constants.DATA_NOT_FOUND)));
+        return ResponseDTO.builder().message(Constants.SUCCESS).data(findSchool).statusValue(HttpStatus.OK.name()).build();
     }
 
     @Transactional
-    public ResponseDTO remove(final String schoolId) {
-        if (!this.schoolRepository.existsById(schoolId)) {
-            throw new BadRequestServiceException(Constants.NO_DATA_FOUND);
+    public ResponseDTO remove(final String id) {
+        if (!this.schoolRepository.existsById(id)) {
+            throw new ResourceNotFoundException(Constants.DATA_NOT_FOUND);
         }
-        this.schoolRepository.deleteById(schoolId);
-        return new ResponseDTO(Constants.REMOVED, schoolId, HttpStatus.OK.getReasonPhrase());
+        this.schoolRepository.deleteById(id);
+        return ResponseDTO.builder().message(Constants.REMOVED).data(id).statusValue(HttpStatus.OK.name()).build();
     }
 
     @Transactional
     public ResponseDTO update(final String id, final SchoolDTO schoolDTO) {
-        final School existingSchool = this.schoolRepository.findById(id).orElseThrow(() -> new BadRequestServiceException(Constants.NO_DATA_FOUND));
-
+        final School existingSchool = this.schoolRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Constants.DATA_NOT_FOUND));
         if (schoolDTO.getName() != null) {
             existingSchool.setName(schoolDTO.getName());
         }
@@ -64,9 +59,7 @@ public class SchoolService {
         if (schoolDTO.getPhone() != null) {
             existingSchool.setPhone(schoolDTO.getPhone());
         }
-        if (schoolDTO.getUpdatedBy() != null) {
-            existingSchool.setUpdatedBy(schoolDTO.getUpdatedBy());
-        }
+        existingSchool.setUpdatedBy(authentication.getUserName());
         return new ResponseDTO(Constants.UPDATED, this.schoolRepository.save(existingSchool), HttpStatus.OK.getReasonPhrase());
     }
 

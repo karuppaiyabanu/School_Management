@@ -8,7 +8,5 @@ public class StandardDTO {
     private String StandardName;
     private Double fees;
     private String schoolId;
-    private String createdBy;
-    private String updatedBy;
 
 }

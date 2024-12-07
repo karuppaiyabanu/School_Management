@@ -13,7 +13,5 @@ public class StudentDTO {
     private String standard;
     private String section;
     private String school;
-    private String createdBy;
-    private String updatedBy;
 
 }

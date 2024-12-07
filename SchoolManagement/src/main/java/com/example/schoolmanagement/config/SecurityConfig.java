@@ -3,13 +3,13 @@ package com.example.schoolmanagement.config;
 import com.example.schoolmanagement.filter.JwtAuthFilter;
 import com.example.schoolmanagement.repository.UserInfoRepository;
 import com.example.schoolmanagement.service.UserInfoUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,16 +22,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+
 public class SecurityConfig {
 
-    private final JwtAuthFilter authFilter;
-    private final UserInfoRepository userInfoRepository;
+    @Autowired
+    private JwtAuthFilter authFilter;
+    @Autowired
+    private UserInfoRepository userInfoRepository;
 
-    public SecurityConfig(final JwtAuthFilter jwtAuthFilter, final UserInfoRepository userInfoRepository) {
-        this.authFilter = jwtAuthFilter;
-        this.userInfoRepository = userInfoRepository;
-    }
+    @Autowired
+    private CustomAuthenticationEntryPoint customAccessDeniedHandler;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -40,20 +40,26 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth.requestMatchers("/auth/user/**", "/api/subject/**").permitAll()
-                .requestMatchers("/api/school/**").hasAnyAuthority("ROLE_SUPER_ADMIN")
-                .requestMatchers("/api/standard/**").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/section/**").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/teacher/**").hasAnyAuthority("ROLE_HR")
-                .requestMatchers("/api/students/**").hasAnyAuthority("ROLE_OFFICE_ADMIN")
-                .requestMatchers("/api/assign/**").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/subject/**").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/exam/**").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/attendance/**").hasAnyAuthority("ROLE_TEACHER")
-                .requestMatchers("/api/mark/**").hasAnyAuthority("ROLE_TEACHER"))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider()).addFilterBefore(this.authFilter, UsernamePasswordAuthenticationFilter.class); // I can't underStand It that Line
-
+        http.csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling.authenticationEntryPoint(customAccessDeniedHandler))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/v1/users/create","/auth/v1/users/login").permitAll()
+                        .requestMatchers("/auth/v1/users/").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/v1/schools/**").hasAuthority("ROLE_SUPER_ADMIN")
+                        .requestMatchers("/api/v1/standards/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/v1/sections/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/v1/teachers/**").hasAuthority("ROLE_HR")
+                        .requestMatchers("/api/v1/students/**").hasAuthority("ROLE_OFFICE_ADMIN")
+                        .requestMatchers("/api/v1/assign-teachers/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/v1/subjects/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/v1/exams/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/v1/attendances/**").hasAuthority("ROLE_TEACHER")
+                        .requestMatchers("/api/v1/marks/**").hasAuthority("ROLE_TEACHER"))
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(this.authFilter, UsernamePasswordAuthenticationFilter.class)
+                .authenticationProvider(authenticationProvider());
         return http.build();
     }
 
@@ -65,7 +71,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService());  ///user tables all values are there
+        authenticationProvider.setUserDetailsService(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());// password
         return authenticationProvider;
     }
@@ -74,5 +80,6 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+
 
 }

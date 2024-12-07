@@ -8,8 +8,6 @@ public class ExamDTO {
     private String name;
     private String standardId;
     private String date;
-    private String createdBy;
-    private String updatedBy;
     private String SubjectId;
 
 }

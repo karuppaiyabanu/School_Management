@@ -12,25 +12,69 @@ import java.sql.SQLException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(BadRequestServiceException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseDTO handleBadRequestServiceAlertException(BadRequestServiceException exception) {
+    public ResponseDTO handleBadRequestException(ResourceNotFoundException exception) {
         final ResponseDTO responseDTO = new ResponseDTO();
         exception.printStackTrace();
         responseDTO.setStatusValue(HttpStatus.BAD_REQUEST.getReasonPhrase());
-        responseDTO.setMessage(Constants.NOT_FOUND);
+        responseDTO.setMessage(Constants.DATA_NOT_FOUND);
         responseDTO.setData(exception.getMessage());
+        return responseDTO;
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseDTO conflictException(ConflictException exception) {
+        final ResponseDTO responseDTO = new ResponseDTO();
+        exception.printStackTrace();
+        responseDTO.setStatusValue(HttpStatus.BAD_REQUEST.getReasonPhrase());
+        responseDTO.setMessage(exception.getMessage());
+        responseDTO.setData(null);
+        return responseDTO;
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseDTO nullPointerException(NullPointerException exception) {
+        final ResponseDTO responseDTO = new ResponseDTO();
+        exception.printStackTrace();
+        responseDTO.setStatusValue(HttpStatus.BAD_REQUEST.getReasonPhrase());
+        responseDTO.setMessage(Constants.DATA_NOT_FOUND);
+        responseDTO.setData(exception.getMessage());
+        return responseDTO;
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseDTO handleUserNotFoundException(UserNotFoundException exception) {
+        final ResponseDTO responseDTO = new ResponseDTO();
+        exception.printStackTrace();
+        responseDTO.setStatusValue(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        responseDTO.setMessage(exception.getMessage());
         return responseDTO;
     }
 
     @ExceptionHandler(SQLException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseDTO handleException(SQLException exception) {
+    public ResponseDTO handleSQLException(SQLException exception) {
         final ResponseDTO responseDTO = new ResponseDTO();
         exception.printStackTrace();
         responseDTO.setStatusValue(HttpStatus.BAD_REQUEST.getReasonPhrase());
-        responseDTO.setMessage(Constants.NOT_FOUND);
+        responseDTO.setMessage(Constants.DATA_NOT_FOUND);
         responseDTO.setData(exception.getMessage());
+        return responseDTO;
+    }
+
+    @ExceptionHandler(CustomForbiddenException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseDTO handleCustomForbiddenException(CustomForbiddenException exception) {
+        System.out.println(exception.getMessage());
+        final ResponseDTO responseDTO = new ResponseDTO();
+        exception.printStackTrace();
+        responseDTO.setMessage("unAuthorized");
+        responseDTO.setData(exception.getMessage());
+        responseDTO.setStatusValue(HttpStatus.FORBIDDEN.getReasonPhrase());
         return responseDTO;
     }
 
@@ -40,9 +84,8 @@ public class GlobalExceptionHandler {
         final ResponseDTO responseDTO = new ResponseDTO();
         exception.printStackTrace();
         responseDTO.setStatusValue(HttpStatus.BAD_REQUEST.getReasonPhrase());
-        responseDTO.setMessage(Constants.NOT_FOUND);
+        responseDTO.setMessage(Constants.DATA_NOT_FOUND);
         responseDTO.setData(exception.getMessage());
         return responseDTO;
     }
-
 }

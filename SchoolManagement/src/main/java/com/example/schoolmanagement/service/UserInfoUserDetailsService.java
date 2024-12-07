@@ -23,7 +23,7 @@ public class UserInfoUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         Optional<UserInfo> userInfo = this.repository.findByName(username);
-        return userInfo.map(UserInfoUserDetailsDTO::new).orElseThrow(() -> new UsernameNotFoundException(Constants.NO_DATA_FOUND));
+        return userInfo.map(UserInfoUserDetailsDTO::new).orElseThrow(() -> new UsernameNotFoundException(Constants.DATA_NOT_FOUND));
     }
 
 }

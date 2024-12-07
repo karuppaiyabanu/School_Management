@@ -45,12 +45,7 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(final String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        return Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(final String token) {
@@ -64,19 +59,14 @@ public class JwtService {
 
 
     public String generateToken(final String userName) {
-        UserInfo userInfo = this.repository.findByName(userName).orElseThrow(() -> new BadCredentialsException(Constants.NO_DATA_FOUND));
+        UserInfo userInfo = this.repository.findByName(userName).orElseThrow(() -> new BadCredentialsException(Constants.DATA_NOT_FOUND));
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userInfo.getRoles());
         return createToken(claims, userName);
     }
 
     private String createToken(Map<String, Object> claims, String userName) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(userName)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
-                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
+        return Jwts.builder().setClaims(claims).setSubject(userName).setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)).signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
     private Key getSignKey() {

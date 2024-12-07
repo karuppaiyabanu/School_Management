@@ -3,8 +3,7 @@ package com.example.schoolmanagement.controller;
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.SectionDTO;
 import com.example.schoolmanagement.service.SectionService;
-import com.example.schoolmanagement.util.Constants;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,23 +11,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/section")
+@RequestMapping("/api/v1/sections")
 public class SectionController {
 
-    private final SectionService sectionService;
-
-    private SectionController(final SectionService sectionService) {
-        this.sectionService = sectionService;
-    }
+    @Autowired
+    private SectionService sectionService;
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseDTO create(@RequestBody final SectionDTO sectionDTO) {
-        return new ResponseDTO(Constants.CREATED, this.sectionService.create(sectionDTO), HttpStatus.CREATED.getReasonPhrase());
+        return this.sectionService.create(sectionDTO);
     }
 
     @GetMapping("/retrieve")
@@ -46,9 +40,9 @@ public class SectionController {
         return this.sectionService.remove(id);
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseDTO update(@PathVariable("id") final String id, @RequestBody final SectionDTO sectionDTO) {
-        return new ResponseDTO(Constants.SUCCESS, this.sectionService.update(id, sectionDTO), HttpStatus.OK.getReasonPhrase());
+        return this.sectionService.update(id, sectionDTO);
     }
 
 }

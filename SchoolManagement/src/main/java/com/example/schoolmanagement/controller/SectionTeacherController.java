@@ -3,6 +3,7 @@ package com.example.schoolmanagement.controller;
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.SectionTeacherDTO;
 import com.example.schoolmanagement.service.SectionTeacherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,21 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/assign")
+@RequestMapping("/api/v1/assign-teachers")
 public class SectionTeacherController {
 
-    private final SectionTeacherService sectionTeacherService;
+    @Autowired
+    private SectionTeacherService sectionTeacherService;
 
-    public SectionTeacherController(final SectionTeacherService sectionTeacherService) {
-        this.sectionTeacherService = sectionTeacherService;
-    }
-
-    @PostMapping("/create")
+    @PostMapping("/assign")
     public ResponseDTO create(@RequestBody final SectionTeacherDTO sectionTeacherDTO) {
         return this.sectionTeacherService.create(sectionTeacherDTO);
     }
 
-    @GetMapping("/retrieveById")
+    @GetMapping("/retrieve")
     public ResponseDTO retrieve() {
         return this.sectionTeacherService.retrieve();
     }

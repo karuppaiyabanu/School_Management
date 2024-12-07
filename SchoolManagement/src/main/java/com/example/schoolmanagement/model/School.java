@@ -17,8 +17,8 @@ import java.time.Instant;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "school")
 public class School {
