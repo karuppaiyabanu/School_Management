@@ -49,7 +49,6 @@ public class UserController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseDTO welcome() {
         return this.userService.welcome();
     }

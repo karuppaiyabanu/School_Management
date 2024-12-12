@@ -68,6 +68,8 @@ public class SchoolServiceTest {
 
     }
 
+
+
     @Test
     public void testRetrieve() {
         School school = mock(School.class);

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-
+@EnableMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig {
 
     @Autowired
@@ -30,8 +31,9 @@ public class SecurityConfig {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
+
     @Autowired
-    private CustomAuthenticationEntryPoint customAccessDeniedHandler;
+    private AuthenticationEntryPointImplement authenticationEntryPointImplement;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -40,11 +42,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.authenticationEntryPoint(customAccessDeniedHandler))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/v1/users/create","/auth/v1/users/login").permitAll()
+        http.csrf(AbstractHttpConfigurer::disable).exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPointImplement))
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/v1/users/create","/auth/v1/users/login").permitAll()
                         .requestMatchers("/auth/v1/users/").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/v1/schools/**").hasAuthority("ROLE_SUPER_ADMIN")
                         .requestMatchers("/api/v1/standards/**").hasAuthority("ROLE_ADMIN")
@@ -56,8 +55,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/exams/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/v1/attendances/**").hasAuthority("ROLE_TEACHER")
                         .requestMatchers("/api/v1/marks/**").hasAuthority("ROLE_TEACHER"))
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(this.authFilter, UsernamePasswordAuthenticationFilter.class)
                 .authenticationProvider(authenticationProvider());
         return http.build();

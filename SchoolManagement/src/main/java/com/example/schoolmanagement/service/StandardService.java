@@ -2,6 +2,7 @@ package com.example.schoolmanagement.service;
 
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.StandardDTO;
+import com.example.schoolmanagement.exception.BadRequestException;
 import com.example.schoolmanagement.exception.ResourceNotFoundException;
 import com.example.schoolmanagement.model.School;
 import com.example.schoolmanagement.model.Standard;
@@ -27,8 +28,20 @@ public class StandardService {
 
     @Transactional
     public ResponseDTO create(final StandardDTO standardDTO) {
+        if (standardDTO==null){
+            return ResponseDTO.builder()
+                    .message("StandardDTO is null")
+                    .statusValue(HttpStatus.BAD_REQUEST.name())
+                    .build();
+        }
         final School school = this.schoolRepository.findById(standardDTO.getSchoolId()).orElseThrow(() -> new ResourceNotFoundException(Constants.DATA_NOT_FOUND));
-        school.setId(standardDTO.getSchoolId());
+        if (school == null) {
+            return ResponseDTO.builder()
+                    .message(Constants.DATA_NOT_FOUND)
+                    .statusValue(HttpStatus.BAD_REQUEST.name())
+                    .build();
+        }
+
         final Standard standard = Standard.builder().name(standardDTO.getStandardName()).fees(standardDTO.getFees()).school(school).createdBy(authentication.getUserName()).updatedBy(authentication.getUserName()).build();
         return ResponseDTO.builder().message(Constants.CREATED).data(this.standardRepository.save(standard)).statusValue(HttpStatus.OK.getReasonPhrase()).build();
     }

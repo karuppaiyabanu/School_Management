@@ -46,5 +46,10 @@ public class SchoolController {
         return this.schoolService.update(id, schoolDTO);
     }
 
+   @GetMapping("/schl")
+   @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public  String hi(){
+       return "hii";
+   }
 
 }

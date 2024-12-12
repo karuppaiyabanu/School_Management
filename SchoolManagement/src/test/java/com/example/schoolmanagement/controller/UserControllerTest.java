@@ -9,20 +9,26 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 class UserControllerTest {
+
 
     private MockMvc mockMvc;
 
@@ -31,6 +37,9 @@ class UserControllerTest {
 
     @InjectMocks
     private UserController userController;
+
+    @Mock
+    private Authentication authentication;
 
     @BeforeEach
     void setUp() {
@@ -103,25 +112,24 @@ class UserControllerTest {
 
     }
 
+
     @Test
-    //@WithMockUser(roles = {"USER"})
-    public void testWelcome_withAdminRole_shouldReturnWelcomeMessage() throws Exception {
-
-        ResponseDTO responseDTO = new ResponseDTO();
-        responseDTO.setMessage("Users retrieved successfully");
-
+    void shouldAllowAdminUserAccess() throws Exception {
+       ResponseDTO responseDTO=new ResponseDTO();
+       responseDTO.setMessage("Welcome");
         when(userService.welcome()).thenReturn(responseDTO);
 
-        mockMvc.perform(get("/auth/v1/users/"))
 
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("{\"message\":\"Users retrieved successfully\"}"));
+        mockMvc.perform(get("/auth/v1/users/")
+                        .with(user("admin").roles("USER")))  // Role: ADMIN
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"message\":\"Welcome\"}"));
     }
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testWelcome_withUserRole_shouldReturnForbidden() throws Exception {
+    public void testAccessWithAdminRole() throws Exception {
         mockMvc.perform(get("/auth/v1/users/"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+                .andExpect(status().isForbidden()) ;    }
+
 }

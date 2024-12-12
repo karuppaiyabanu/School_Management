@@ -10,4 +10,9 @@ public class SchoolManagementApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void runMainApplication() {
+        SchoolManagementApplication.main(new String[]{});
+    }
+
 }

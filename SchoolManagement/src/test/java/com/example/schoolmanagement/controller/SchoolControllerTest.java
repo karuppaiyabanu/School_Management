@@ -121,5 +121,17 @@ class SchoolControllerTest {
     }
 
 
+//    @Test
+//    void testCreateSchool_InvalidInput() throws Exception {
+//
+//        String invalidJson = "{\"phone\":\"123\", \"address\":\"Test Address\"}";
+//
+//        mockMvc.perform(post("/api/v1/schools/")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(invalidJson))
+//                .andExpect(status().isOk())  // Expecting a 400 Bad Request due to invalid input
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid input"));
+//    }
+
 }
 

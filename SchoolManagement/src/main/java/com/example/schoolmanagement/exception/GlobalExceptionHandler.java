@@ -66,17 +66,6 @@ public class GlobalExceptionHandler {
         return responseDTO;
     }
 
-    @ExceptionHandler(CustomForbiddenException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseDTO handleCustomForbiddenException(CustomForbiddenException exception) {
-        System.out.println(exception.getMessage());
-        final ResponseDTO responseDTO = new ResponseDTO();
-        exception.printStackTrace();
-        responseDTO.setMessage("unAuthorized");
-        responseDTO.setData(exception.getMessage());
-        responseDTO.setStatusValue(HttpStatus.FORBIDDEN.getReasonPhrase());
-        return responseDTO;
-    }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
