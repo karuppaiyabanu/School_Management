@@ -26,7 +26,7 @@ public class SchoolService {
     @Transactional
     public ResponseDTO create(final SchoolDTO schoolDTO) {
         final School school = School.builder().name(schoolDTO.getName()).address(schoolDTO.getAddress()).phone(schoolDTO.getPhone()).createdBy(authentication.getUserName()).updatedBy(authentication.getUserName()).build();
-        return ResponseDTO.builder().message(Constants.CREATED).data(school).statusValue(HttpStatus.CREATED.name()).build();
+        return ResponseDTO.builder().message(Constants.CREATED).data(this.schoolRepository.save(school)).statusValue(HttpStatus.CREATED.name()).build();
     }
 
     public ResponseDTO retrieve() {

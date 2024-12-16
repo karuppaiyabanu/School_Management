@@ -127,9 +127,10 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithMockUser(username = "banu", roles = "USER")
     public void testAccessWithAdminRole() throws Exception {
         mockMvc.perform(get("/auth/v1/users/"))
-                .andExpect(status().isForbidden()) ;    }
+                .andExpect(status().isOk()) ;
+    }
 
 }

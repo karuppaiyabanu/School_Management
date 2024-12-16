@@ -19,7 +19,6 @@ public class AuthenticationEntryPointImplement implements AuthenticationEntryPoi
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-       System.out.println("my guess is Correct");
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setStatusValue(HttpStatus.UNAUTHORIZED.getReasonPhrase());
         responseDTO.setMessage(Constants.CREDENTIALS_MISMATCH);

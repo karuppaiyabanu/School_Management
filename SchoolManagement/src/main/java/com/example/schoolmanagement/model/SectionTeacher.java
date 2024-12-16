@@ -21,7 +21,7 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "teacher_section")
+@Table(name = "section_teacher")
 public class SectionTeacher {
 
     @Id

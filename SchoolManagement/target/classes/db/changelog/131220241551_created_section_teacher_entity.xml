@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="ROLE_ADMIN">
+        <createTable tableName="section_teacher">
+
+            <column name="id" type="UUID" >
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk_section_teacher_id" />
+            </column>
+            <column name="section_id" type="UUID"/>
+            <column name="teacher_id" type="UUID"/>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+            <column name="created_at" type="datetime(6)"/>
+            <column name="updated_at" type="datetime(6)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="2" author="ROLE_ADMIN">
+        <addForeignKeyConstraint
+                constraintName="fk_section_id"
+                baseTableName="section_teacher"
+                baseColumnNames="section_id"
+                referencedTableName="section"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="3" author="ROLE_ADMIN">
+        <addForeignKeyConstraint
+                constraintName="fk_teacher_id"
+                baseTableName="section_teacher"
+                baseColumnNames="teacher_id"
+                referencedTableName="teacher"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>

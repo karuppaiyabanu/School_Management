@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CurrentTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
@@ -32,7 +32,7 @@ public class School {
     private String address;
     @Column(name = "phone")
     private String phone;
-    @CurrentTimestamp
+    @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
     @Column(name = "created_by")

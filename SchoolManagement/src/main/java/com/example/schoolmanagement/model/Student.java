@@ -35,7 +35,7 @@ public class Student {
     private String motherName;
     @Column(name = "address")
     private String address;
-    @Column(name = "mobile_number")
+
     private String phone;
     @ManyToOne
     private School school;

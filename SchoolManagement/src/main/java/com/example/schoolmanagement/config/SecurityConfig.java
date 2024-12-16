@@ -42,9 +42,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable).exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPointImplement))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/v1/users/create","/auth/v1/users/login").permitAll()
-                        .requestMatchers("/auth/v1/users/").hasAuthority("ROLE_ADMIN")
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/v1/users/**").permitAll()
+                        //.requestMatchers("/auth/v1/users/").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/v1/schools/**").hasAuthority("ROLE_SUPER_ADMIN")
                         .requestMatchers("/api/v1/standards/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/v1/sections/**").hasAuthority("ROLE_ADMIN")
@@ -55,6 +55,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/exams/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/v1/attendances/**").hasAuthority("ROLE_TEACHER")
                         .requestMatchers("/api/v1/marks/**").hasAuthority("ROLE_TEACHER"))
+                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPointImplement))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(this.authFilter, UsernamePasswordAuthenticationFilter.class)
                 .authenticationProvider(authenticationProvider());
