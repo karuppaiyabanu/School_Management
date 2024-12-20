@@ -70,5 +70,12 @@
                 referencedColumnNames="id"
                 onDelete="CASCADE"/>
     </changeSet>
-
+   <changeSet id="8" author="ROLE_OFFICE_ADMIN">
+       <rollback>
+           <dropColumn tableName="student" columnName="known_subject" />
+       </rollback>
+   </changeSet>
+    <changeSet id="9" author="">
+        <dropColumn tableName="student" columnName="known_subject" />
+    </changeSet>
 </databaseChangeLog>

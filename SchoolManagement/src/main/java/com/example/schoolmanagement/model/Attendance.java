@@ -11,7 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.CurrentTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
@@ -36,4 +38,14 @@ public class Attendance {
     @ManyToOne
     private SectionTeacher sectionTeacher;
 
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private Instant createdAt;
+    @Column(name = "created_by")
+    private String createdBy;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Instant updatedAt;
+    @Column(name = "updated_by")
+    private String updatedBy;
 }
