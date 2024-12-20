@@ -4,85 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29b514a3-224b-4f53-a363-e56e8a500b59" name="Changes" comment="added few liquibase files">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Spring boot project Fyndus.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/config/AuthenticationEntryPointImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/config/AuthenticationEntryPointImplement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/model/School.java" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/model/School.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/model/SectionTeacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/model/SectionTeacher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/model/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/model/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/service/SchoolService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/src/main/java/com/example/schoolmanagement/service/SchoolService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/src/main/resources/db/changelog-master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/src/main/resources/db/changelog-master.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/src/test/java/com/example/schoolmanagement/controller/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/src/test/java/com/example/schoolmanagement/controller/UserControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/config/AuthenticationEntryPointImplement.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/config/AuthenticationEntryPointImplement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/AttendanceDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/AttendanceDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/ExamDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/ExamDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/JwtAuthenticationResponseDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/JwtAuthenticationResponseDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/MarkDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/MarkDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/ResponseDTO$ResponseDTOBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/ResponseDTO$ResponseDTOBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/ResponseDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/ResponseDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/SchoolDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/SchoolDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/SearchFilterResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/SearchFilterResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/SectionDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/SectionDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/SectionTeacherDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/SectionTeacherDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/StandardDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/StandardDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/StudentDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/StudentDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/SubjectDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/SubjectDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/TeacherDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/TeacherDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/UserInfoUserDetailsDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/UserInfoUserDetailsDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/UserLoginRequestDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/UserLoginRequestDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/UserSignUpRequestDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/dto/UserSignUpRequestDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Attendance$AttendanceBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Attendance$AttendanceBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Attendance.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Attendance.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Exam$ExamBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Exam$ExamBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Exam.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Exam.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Mark$MarkBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Mark$MarkBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Mark.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Mark.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/School$SchoolBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/School$SchoolBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/School.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/School.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Section$SectionBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Section$SectionBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Section.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Section.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/SectionTeacher$SectionTeacherBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/SectionTeacher$SectionTeacherBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/SectionTeacher.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/SectionTeacher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Standard$StandardBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Standard$StandardBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Standard.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Standard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Student$StudentBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Student$StudentBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Student.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Subject$SubjectBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Subject$SubjectBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Subject.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Subject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Teacher$TeacherBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Teacher$TeacherBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Teacher.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/Teacher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/UserInfo$UserInfoBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/UserInfo$UserInfoBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/UserInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/model/UserInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/AttendanceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/AttendanceService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/ExamService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/ExamService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/JwtService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/JwtService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/MarkService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/MarkService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/SchoolService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/SchoolService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/SectionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/SectionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/SectionTeacherService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/SectionTeacherService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/StudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/StudentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/SubjectService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/SubjectService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/TeacherService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/TeacherService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/UserInfoUserDetailsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/UserInfoUserDetailsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/util/TokenExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/classes/com/example/schoolmanagement/util/TokenExtractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SchoolManagement/target/test-classes/com/example/schoolmanagement/controller/UserControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/SchoolManagement/target/test-classes/com/example/schoolmanagement/controller/UserControllerTest.class" afterDir="false" />
+    <list default="true" id="c310bb19-5394-4d78-969b-723624736d25" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,17 +15,18 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/SchoolManagement" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
-  <component name="ProjectId" id="2ptBe3aZErGY9FZKaZ8aZvvEcLQ" />
+  <component name="ProjectId" id="2qILeWyOIHiKeYPltu0DJT7hcrV" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -113,47 +37,8 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.SchoolManagementApplication.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.All in Spring boot project Fyndus.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AttendanceControllerTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AttendanceControllerTest.testWith_AccessibleWithoutToken.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.SchoolControllerTest.testCreateSchool_InvalidInput.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.SchoolManagementApplicationTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.SchoolManagementApplicationTests.runMainApplication.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.SchoolServiceTest.testCreateSchool_withNullSchoolDTO.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testCreateStandard_StandardDTO_IsNull.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testCreateStandard_StandardDTO_IsNullThrowsException.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testCreateStandard_WithSchoolIdNotFound.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testCreateWithNullStandardDTO.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testCreateWithSchoolIdNotFound.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testCreate_SchoolNotFound.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.StandardServiceTest.testCreate_SchoolNotFound_ThrowsException.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testCreate_StandardDTO_IsNullThrowsException.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testCreatedStandard_SchoolIdNotFound.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testDeleteStandardThatDoesNotExist.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testGetStandard_StandardId_NotFoundException.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testRetrieveStandardIdDoesNotExist.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardServiceTest.testUpdateStandardThatDoesNotExist.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.shouldAllowAdminUserAccess.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.testAccessWithAdminRole.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.testCreateUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.testWelcomeAccessibleWithoutToken.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.testWelcomeWithAdminRole.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.testWelcome_withUserRole_shouldReturnForbidden.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.testWithAuthenticatedAdmin.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.testWith_AccessibleWithoutToken.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.testWith_UnAuthenticatedUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.testWith_UnauthorizedUser.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.UserControllerTest.testWith_authenticatedUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.testWith_wrongAuthority.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserControllerTest.tests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserTestController.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserTestController.shouldReturnWelcomeMessageForAdmin.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.schoolmanagement in SchoolManagement.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ExamControllerTest.testRetrieveExam.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/karuppaiya/Desktop/Spring boot project Fyndus&quot;
@@ -173,39 +58,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StandardServiceTest.testCreateStandard_WithSchoolIdNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SchoolManagement" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.schoolmanagement.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.schoolmanagement.service" />
-      <option name="MAIN_CLASS_NAME" value="com.example.schoolmanagement.service.StandardServiceTest" />
-      <option name="METHOD_NAME" value="testCreateStandard_WithSchoolIdNotFound" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StandardServiceTest.testRetrieveStandardIdDoesNotExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SchoolManagement" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.schoolmanagement.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.schoolmanagement.service" />
-      <option name="MAIN_CLASS_NAME" value="com.example.schoolmanagement.service.StandardServiceTest" />
-      <option name="METHOD_NAME" value="testRetrieveStandardIdDoesNotExist" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserControllerTest.testAccessWithAdminRole" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExamControllerTest.testRetrieveExam" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SchoolManagement" />
       <extension name="coverage">
         <pattern>
@@ -214,17 +67,9 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.schoolmanagement.controller" />
-      <option name="MAIN_CLASS_NAME" value="com.example.schoolmanagement.controller.UserControllerTest" />
-      <option name="METHOD_NAME" value="testAccessWithAdminRole" />
+      <option name="MAIN_CLASS_NAME" value="com.example.schoolmanagement.controller.ExamControllerTest" />
+      <option name="METHOD_NAME" value="testRetrieveExam" />
       <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="schoolmanagement in SchoolManagement" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SchoolManagement" />
-      <option name="TEST_OBJECT" value="directory" />
-      <dir value="$PROJECT_DIR$/SchoolManagement/src/test/java/com/example/schoolmanagement" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -232,43 +77,19 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.SchoolManagementApplication" />
-        <item itemvalue="JUnit.UserControllerTest.testAccessWithAdminRole" />
-        <item itemvalue="JUnit.schoolmanagement in SchoolManagement" />
-        <item itemvalue="JUnit.StandardServiceTest.testRetrieveStandardIdDoesNotExist" />
-        <item itemvalue="JUnit.StandardServiceTest.testCreateStandard_WithSchoolIdNotFound" />
+        <item itemvalue="JUnit.ExamControllerTest.testRetrieveExam" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="29b514a3-224b-4f53-a363-e56e8a500b59" name="Changes" comment="" />
-      <created>1733575582764</created>
+      <changelist id="c310bb19-5394-4d78-969b-723624736d25" name="Changes" comment="" />
+      <created>1734345237577</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1733575582764</updated>
+      <updated>1734345237577</updated>
     </task>
-    <task id="LOCAL-00001" summary="added few liquibase files">
-      <option name="closed" value="true" />
-      <created>1734344688017</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1734344688017</updated>
-    </task>
-    <task id="LOCAL-00002" summary="added few liquibase files">
-      <option name="closed" value="true" />
-      <created>1734344696793</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1734344696793</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="added few liquibase files" />
-    <option name="LAST_COMMIT_MESSAGE" value="added few liquibase files" />
   </component>
 </project>
