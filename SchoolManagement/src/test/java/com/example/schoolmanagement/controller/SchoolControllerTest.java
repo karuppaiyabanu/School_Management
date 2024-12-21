@@ -4,16 +4,14 @@ package com.example.schoolmanagement.controller;
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.SchoolDTO;
 import com.example.schoolmanagement.service.SchoolService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -23,25 +21,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@SpringBootTest
+@AutoConfigureMockMvc
 class SchoolControllerTest {
-
-
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private SchoolService schoolService;
 
-    @InjectMocks
-    private SchoolController schoolController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(schoolController).build();
-    }
 
     @Test
+    @WithMockUser(roles = "SUPER_ADMIN")
     void testCreateSchool() throws Exception {
 
         SchoolDTO schoolDTO = new SchoolDTO();
@@ -65,6 +56,7 @@ class SchoolControllerTest {
 
 
     @Test
+    @WithMockUser(roles = "SUPER_ADMIN")
     void testRetrieveSchools() throws Exception {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Schools retrieved successfully");
@@ -77,6 +69,7 @@ class SchoolControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "SUPER_ADMIN")
     void testRetrieveSchoolById() throws Exception {
         String id = "1";
         ResponseDTO responseDTO = new ResponseDTO();
@@ -90,6 +83,7 @@ class SchoolControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "SUPER_ADMIN")
     void testDeleteSchool() throws Exception {
         String id = "1";
         ResponseDTO responseDTO = new ResponseDTO();
@@ -103,6 +97,7 @@ class SchoolControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "SUPER_ADMIN")
     void testUpdateSchool() throws Exception {
         String id = "1";
         SchoolDTO schoolDTO = new SchoolDTO();
@@ -120,18 +115,6 @@ class SchoolControllerTest {
                 .andExpect(content().json("{\"message\":\"School updated successfully\"}"));
     }
 
-
-//    @Test
-//    void testCreateSchool_InvalidInput() throws Exception {
-//
-//        String invalidJson = "{\"phone\":\"123\", \"address\":\"Test Address\"}";
-//
-//        mockMvc.perform(post("/api/v1/schools/")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(invalidJson))
-//                .andExpect(status().isOk())  // Expecting a 400 Bad Request due to invalid input
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid input"));
-//    }
 
 }
 

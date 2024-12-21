@@ -3,14 +3,14 @@ package com.example.schoolmanagement.controller;
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.StandardDTO;
 import com.example.schoolmanagement.service.StandardService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -20,23 +20,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@SpringBootTest
+@AutoConfigureMockMvc
 public class StandardControllerTest {
 
-    @Mock
+    @MockBean
     StandardService standardService;
-    @InjectMocks
-    StandardController standardController;
+    @Autowired
     private MockMvc mockMvc;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(standardController).build();
-    }
-
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testCreateStandard() throws Exception {
-
         StandardDTO standardDTO = new StandardDTO();
         standardDTO.setStandardName("Test Standard");
         standardDTO.setSchoolId("123");
@@ -52,6 +47,7 @@ public class StandardControllerTest {
 
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testRetrieveStandard() throws Exception {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Standard retrieved successfully");
@@ -62,6 +58,7 @@ public class StandardControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testRetrieveStandardById() throws Exception {
         String id = "1";
         ResponseDTO responseDTO = new ResponseDTO();
@@ -73,6 +70,7 @@ public class StandardControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testDeleteStandard() throws Exception {
         String id = "1";
         ResponseDTO responseDTO = new ResponseDTO();
@@ -85,6 +83,7 @@ public class StandardControllerTest {
 
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testUpdateStandard() throws Exception {
         String id = "1";
         StandardDTO standardDTO = new StandardDTO();

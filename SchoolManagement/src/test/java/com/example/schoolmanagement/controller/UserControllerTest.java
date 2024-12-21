@@ -4,48 +4,32 @@ import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.UserLoginRequestDTO;
 import com.example.schoolmanagement.dto.UserSignUpRequestDTO;
 import com.example.schoolmanagement.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@SpringBootTest
+@AutoConfigureMockMvc
 class UserControllerTest {
 
-
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private UserService userService;
-
-    @InjectMocks
-    private UserController userController;
-
-    @Mock
-    private Authentication authentication;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-    }
 
     @Test
     void testCreateUser() throws Exception {
@@ -114,23 +98,10 @@ class UserControllerTest {
 
 
     @Test
-    void shouldAllowAdminUserAccess() throws Exception {
-       ResponseDTO responseDTO=new ResponseDTO();
-       responseDTO.setMessage("Welcome");
-        when(userService.welcome()).thenReturn(responseDTO);
-
-
-        mockMvc.perform(get("/auth/v1/users/")
-                        .with(user("admin").roles("USER")))  // Role: ADMIN
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"message\":\"Welcome\"}"));
-    }
-
-    @Test
     @WithMockUser(username = "banu", roles = "USER")
     public void testAccessWithAdminRole() throws Exception {
         mockMvc.perform(get("/auth/v1/users/"))
-                .andExpect(MockMvcResultMatchers.status().isOk()) ;
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
 }

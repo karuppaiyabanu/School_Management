@@ -1,10 +1,7 @@
 package com.example.schoolmanagement.service;
 
 import com.example.schoolmanagement.dto.ResponseDTO;
-import com.example.schoolmanagement.dto.SchoolDTO;
 import com.example.schoolmanagement.dto.StandardDTO;
-import com.example.schoolmanagement.exception.BadRequestException;
-import com.example.schoolmanagement.exception.ConflictException;
 import com.example.schoolmanagement.exception.ResourceNotFoundException;
 import com.example.schoolmanagement.model.School;
 import com.example.schoolmanagement.model.Standard;
@@ -25,12 +22,8 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -178,10 +171,6 @@ public class StandardServiceTest {
     }
 
 
-
-
-
-
     @Test
     public void testCreateStandard_WithSchoolIdNotFound() {
 
@@ -199,30 +188,32 @@ public class StandardServiceTest {
         }
 
     }
-   @Test
-   public  void testRetrieveStandardIdDoesNotExist(){
-        String standardId="123";
+
+    @Test
+    public void testRetrieveStandardIdDoesNotExist() {
+        String standardId = "123";
         when(standardRepository.findById(standardId)).thenReturn(Optional.empty());
-        try{
-            ResponseDTO response=standardService.retrieveById(standardId);
+        try {
+            ResponseDTO response = standardService.retrieveById(standardId);
             fail();
 
         } catch (ResourceNotFoundException exception) {
-          assertEquals(Constants.DATA_NOT_FOUND,exception.getMessage());
+            assertEquals(Constants.DATA_NOT_FOUND, exception.getMessage());
         }
-   }
+    }
 
 
     @Test
-    public  void  testUpdateStandardIdDoesNotExist(){
-        StandardDTO standardDTO=mock(StandardDTO.class);
-        assertThrows(ResourceNotFoundException.class,()->{
-            standardService.update("",standardDTO);
+    public void testUpdateStandardIdDoesNotExist() {
+        StandardDTO standardDTO = mock(StandardDTO.class);
+        assertThrows(ResourceNotFoundException.class, () -> {
+            standardService.update("", standardDTO);
         });
     }
+
     @Test
-    public  void  testDeleteStandardIdDoesNotExist(){
-        assertThrows(ResourceNotFoundException.class,()->{
+    public void testDeleteStandardIdDoesNotExist() {
+        assertThrows(ResourceNotFoundException.class, () -> {
             standardService.remove("");
         });
     }

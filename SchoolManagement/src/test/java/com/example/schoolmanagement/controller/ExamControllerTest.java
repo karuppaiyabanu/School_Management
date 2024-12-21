@@ -3,14 +3,14 @@ package com.example.schoolmanagement.controller;
 import com.example.schoolmanagement.dto.ExamDTO;
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.service.ExamService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -19,23 +19,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@SpringBootTest
+@AutoConfigureMockMvc
 class ExamControllerTest {
 
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private ExamService examService;
 
-    @InjectMocks
-    private ExamController examController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(examController).build();
-    }
-
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testCreateExam() throws Exception {
         ExamDTO examDTO = new ExamDTO();
         examDTO.setName("Tamil");
@@ -53,6 +48,7 @@ class ExamControllerTest {
 
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testRetrieveExam() throws Exception {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Exam retrieved successfully");
@@ -63,6 +59,7 @@ class ExamControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testRetrieveExamById() throws Exception {
         String id = "1";
         ResponseDTO responseDTO = new ResponseDTO();
@@ -74,6 +71,7 @@ class ExamControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testUpdateExam() throws Exception {
         String id = "1";
         ExamDTO examDTO = new ExamDTO();

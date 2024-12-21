@@ -3,14 +3,14 @@ package com.example.schoolmanagement.controller;
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.SubjectDTO;
 import com.example.schoolmanagement.service.SubjectService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -20,23 +20,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
+@SpringBootTest
+@AutoConfigureMockMvc
 class SubjectControllerTest {
 
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private SubjectService subjectService;
 
-    @InjectMocks
-    private SubjectController subjectController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(subjectController).build();
-    }
-
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testCreateSubject() throws Exception {
         SubjectDTO subjectDTO = new SubjectDTO();
         subjectDTO.setName("Test Subject");
@@ -50,6 +46,7 @@ class SubjectControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testRetrieveSubject() throws Exception {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Subject retrieved successfully");
@@ -61,6 +58,7 @@ class SubjectControllerTest {
 
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testDeleteSubject() throws Exception {
         String id = "1";
         ResponseDTO responseDTO = new ResponseDTO();
@@ -72,6 +70,7 @@ class SubjectControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testUpdateSubject() throws Exception {
         String id = "1";
 
@@ -82,8 +81,7 @@ class SubjectControllerTest {
 
         when(subjectService.update(id, subjectDTO)).thenReturn(responseDTO);
 
-        mockMvc.perform(put("/api/v1/subjects/update/{id}", id).contentType(MediaType.APPLICATION_JSON).content("{\"name\":\"Update Subject\"}")).andExpect(status().isOk())
-                .andExpect(content().json("{\"message\":\"Subject updated successfully\"}"));
+        mockMvc.perform(put("/api/v1/subjects/update/{id}", id).contentType(MediaType.APPLICATION_JSON).content("{\"name\":\"Update Subject\"}")).andExpect(status().isOk()).andExpect(content().json("{\"message\":\"Subject updated successfully\"}"));
     }
 
 }

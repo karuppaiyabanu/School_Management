@@ -3,14 +3,14 @@ package com.example.schoolmanagement.controller;
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.TeacherDTO;
 import com.example.schoolmanagement.service.TeacherService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -20,23 +20,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@SpringBootTest
+@AutoConfigureMockMvc
 class TeacherControllerTest {
-
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private TeacherService teacherService;
 
-    @InjectMocks
-    private TeacherController teacherController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(teacherController).build();
-    }
-
     @Test
+    @WithMockUser(roles = "HR")
     void testCreateTeacher() throws Exception {
 
         TeacherDTO teacherDTO = new TeacherDTO();
@@ -57,6 +51,7 @@ class TeacherControllerTest {
 
 
     @Test
+    @WithMockUser(roles = "HR")
     void testRetrieveTeacher() throws Exception {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Teachers retrieved successfully");
@@ -69,6 +64,7 @@ class TeacherControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "HR")
     void testRetrieveTeacherById() throws Exception {
         String id = "1";
         ResponseDTO responseDTO = new ResponseDTO();
@@ -82,6 +78,7 @@ class TeacherControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "HR")
     void testDeleteTeacher() throws Exception {
         String id = "1";
         ResponseDTO responseDTO = new ResponseDTO();
@@ -95,6 +92,7 @@ class TeacherControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "HR")
     void testUpdateTeacher() throws Exception {
         String id = "1";
         TeacherDTO teacherDTO = new TeacherDTO();

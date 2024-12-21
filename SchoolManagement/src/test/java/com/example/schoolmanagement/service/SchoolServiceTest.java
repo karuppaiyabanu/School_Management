@@ -8,9 +8,11 @@ import com.example.schoolmanagement.util.AuthenticationService;
 import com.example.schoolmanagement.util.Constants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+
+@ExtendWith(MockitoExtension.class)
 public class SchoolServiceTest {
 
     private static final String EXISTING_ID = "107c4014-59a8-4807-b890-eb5a456ab198";
@@ -53,6 +57,7 @@ public class SchoolServiceTest {
         schoolDTO.setName(NAME);
         schoolDTO.setAddress(ADDRESS);
         schoolDTO.setPhone(PHONE);
+
         School school = new School();
         school.setName(NAME);
         school.setAddress(ADDRESS);

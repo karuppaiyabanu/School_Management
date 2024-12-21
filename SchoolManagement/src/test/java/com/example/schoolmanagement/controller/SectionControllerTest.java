@@ -3,14 +3,14 @@ package com.example.schoolmanagement.controller;
 import com.example.schoolmanagement.dto.ResponseDTO;
 import com.example.schoolmanagement.dto.SectionDTO;
 import com.example.schoolmanagement.service.SectionService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -20,24 +20,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@SpringBootTest
+@AutoConfigureMockMvc
 class SectionControllerTest {
 
-
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private SectionService sectionService;
 
-    @InjectMocks
-    private SectionController sectionController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(sectionController).build();
-    }
-
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testCreateSection() throws Exception {
 
         SectionDTO sectionDTO = new SectionDTO();
@@ -54,6 +48,7 @@ class SectionControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testRetrieveSection() throws Exception {
 
         ResponseDTO responseDTO = new ResponseDTO();
@@ -65,6 +60,7 @@ class SectionControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testRetrieveSectionById() throws Exception {
         String id = "1";
         ResponseDTO responseDTO = new ResponseDTO();
@@ -76,6 +72,7 @@ class SectionControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testDeleteSection() throws Exception {
         String id = "1";
         ResponseDTO responseDTO = new ResponseDTO();
@@ -87,6 +84,7 @@ class SectionControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testUpdateSection() throws Exception {
         String id = "1";
 

@@ -110,6 +110,12 @@
             <version>5.2.3</version> <!-- Use the latest version -->
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>4.1.2</version> <!-- Ensure compatibility with poi-ooxml -->
+        </dependency>
+
     </dependencies>
 
     <build>
