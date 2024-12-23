@@ -33,7 +33,7 @@ public class FileGenerateController {
         ByteArrayOutputStream excelFile = this.fileGenerateService.generateExcelSheet();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename=student_attendance.xls");
+        headers.add("Content-Disposition", "attachment; filename=student attendance.xls");
         return ResponseEntity.ok()
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
