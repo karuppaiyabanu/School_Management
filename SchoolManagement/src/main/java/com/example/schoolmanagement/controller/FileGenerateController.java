@@ -29,14 +29,6 @@ public class FileGenerateController {
         return this.markRepository.generatePdf();
     }
 
-    @GetMapping("/excel")
-    public ResponseEntity<byte[]> generateFile() throws IOException {
-        ByteArrayOutputStream excelFile = this.fileGenerateService.generateExcelSheet();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename=student attendance.xls");
-        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_OCTET_STREAM).body(excelFile.toByteArray());
-    }
 
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadExcel() {
