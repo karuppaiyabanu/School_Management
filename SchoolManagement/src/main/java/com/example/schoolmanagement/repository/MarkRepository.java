@@ -1,5 +1,6 @@
 package com.example.schoolmanagement.repository;
 
+import com.example.schoolmanagement.dto.StudentReport;
 import com.example.schoolmanagement.model.Mark;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -48,8 +49,10 @@ public interface MarkRepository extends JpaRepository<Mark, String> {
             "GROUP BY \n" +
             "    s.id, e.standard_id, t.name, e.name\n" +
             "ORDER BY \n" +
-            "    student_attendance_percentage DESC;\n",nativeQuery = true)
+            "    student_attendance_percentage DESC;\n", nativeQuery = true)
     List<Object[]> generatePdf();
+
+
 
 
 }
