@@ -47,7 +47,7 @@ public class EmailService {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom(fromEmailId);
-        helper.setTo("achudha.senthilkumar@fyndus.com");
+        helper.setTo("karuppaiyasathiyamoorthi233@gmail.com");
         helper.setSubject(subject);
         helper.setText(body);
         helper.addAttachment("StudentDetails.xlsx", new ByteArrayResource(file, "application/octet-stream"));

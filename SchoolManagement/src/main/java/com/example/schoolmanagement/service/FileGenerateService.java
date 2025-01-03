@@ -1,13 +1,7 @@
 package com.example.schoolmanagement.service;
 
 import com.example.schoolmanagement.repository.MarkRepository;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,13 +35,13 @@ public class FileGenerateService {
 
         for (Object[] data : studentDetails) {
             Row dataRow = sheet.createRow(dataRowIndex++);
-            dataRow.createCell(0).setCellValue((String) data[0]);
-            dataRow.createCell(1).setCellValue((String) data[1]);
-            dataRow.createCell(2).setCellValue((String) data[2]);
-            dataRow.createCell(3).setCellValue(data[3].toString());
-            dataRow.createCell(4).setCellValue((String) data[4]);
-            dataRow.createCell(5).setCellValue((String) data[5]);
-            dataRow.createCell(6).setCellValue(data[6].toString());
+            dataRow.createCell(0).setCellValue(((String) data[0]).toLowerCase());
+            dataRow.createCell(1).setCellValue(((String) data[1]).toLowerCase());
+            dataRow.createCell(2).setCellValue(((String) data[2]).toLowerCase());
+            dataRow.createCell(3).setCellValue((data[3].toString().toLowerCase()));
+            dataRow.createCell(4).setCellValue(((String) data[4]).toLowerCase());
+            dataRow.createCell(5).setCellValue(((String) data[5]).toLowerCase());
+            dataRow.createCell(6).setCellValue((data[6].toString()).toLowerCase());
 
         }
         for (int i = 0; i < headers.length; i++) {
@@ -63,9 +57,18 @@ public class FileGenerateService {
 
     private CellStyle createHeaderStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
+        style.setBorderTop(BorderStyle.THIN);
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setBorderRight(BorderStyle.THIN);
+
         Font font = workbook.createFont();
         font.setBold(true);
         style.setFont(font);
+
+        style.setFillForegroundColor(IndexedColors.SEA_GREEN.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
         style.setAlignment(HorizontalAlignment.CENTER);
         return style;
     }

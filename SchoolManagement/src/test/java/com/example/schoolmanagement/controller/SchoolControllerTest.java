@@ -24,12 +24,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class SchoolControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private SchoolService schoolService;
-
 
     @Test
     @WithMockUser(roles = "SUPER_ADMIN")
@@ -114,7 +114,6 @@ class SchoolControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"message\":\"School updated successfully\"}"));
     }
-
 
 }
 
