@@ -2,6 +2,7 @@ C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\config\SecurityConfig.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\controller\AttendanceController.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\controller\ExamController.java
+C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\controller\FileGenerateController.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\controller\MarkController.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\controller\SchoolController.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\controller\SectionController.java
@@ -22,6 +23,7 @@ C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\dto\SectionTeacherDTO.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\dto\StandardDTO.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\dto\StudentDTO.java
+C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\dto\StudentReport.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\dto\SubjectDTO.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\dto\TeacherDTO.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\dto\UserInfoUserDetailsDTO.java
@@ -57,7 +59,9 @@ C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\repository\UserInfoRepository.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\SchoolManagementApplication.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\service\AttendanceService.java
+C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\service\EmailService.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\service\ExamService.java
+C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\service\FileGenerateService.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\service\JwtService.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\service\MarkService.java
 C:\Users\karuppaiya\Desktop\Spring boot project Fyndus\SchoolManagement\src\main\java\com\example\schoolmanagement\service\SchoolService.java

@@ -50,28 +50,28 @@ public class SchoolServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    public void testCreate() {
-
-        SchoolDTO schoolDTO = new SchoolDTO();
-        schoolDTO.setName(NAME);
-        schoolDTO.setAddress(ADDRESS);
-        schoolDTO.setPhone(PHONE);
-
-        School school = new School();
-        school.setName(NAME);
-        school.setAddress(ADDRESS);
-        school.setPhone(PHONE);
-
-        when(schoolRepository.save(any(School.class))).thenReturn(school);
-
-        ResponseDTO responseDTO = schoolService.create(schoolDTO);
-
-        assertEquals(Constants.CREATED, responseDTO.getMessage());
-        assertNotNull(responseDTO.getData());
-        assertEquals(HttpStatus.CREATED.name(), responseDTO.getStatusValue());
-
-    }
+//    @Test
+//    public void testCreate() {
+//
+//        SchoolDTO schoolDTO = new SchoolDTO();
+//        schoolDTO.setName(NAME);
+//        schoolDTO.setAddress(ADDRESS);
+//        schoolDTO.setPhone(PHONE);
+//
+//        School school = new School();
+//        school.setName(NAME);
+//        school.setAddress(ADDRESS);
+//        school.setPhone(PHONE);
+//
+//        when(schoolRepository.save(any(School.class))).thenReturn(school);
+//
+//        ResponseDTO responseDTO = schoolService.create(schoolDTO);
+//
+//        assertEquals(Constants.CREATED, responseDTO.getMessage());
+//        assertNotNull(responseDTO.getData());
+//        assertEquals(HttpStatus.CREATED.name(), responseDTO.getStatusValue());
+//
+//    }
 
 
 

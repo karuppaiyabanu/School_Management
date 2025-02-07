@@ -1,4 +1,19 @@
 -------------------------------------------------------------------------------
 Test set: com.example.schoolmanagement.service.SchoolServiceTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.165 s -- in com.example.schoolmanagement.service.SchoolServiceTest
+Tests run: 5, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.297 s <<< FAILURE! -- in com.example.schoolmanagement.service.SchoolServiceTest
+com.example.schoolmanagement.service.SchoolServiceTest.testCreate -- Time elapsed: 0.012 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.lang.CharSequence.length()" because "this.text" is null
+	at java.base/java.util.regex.Matcher.getTextLength(Matcher.java:1769)
+	at java.base/java.util.regex.Matcher.reset(Matcher.java:415)
+	at java.base/java.util.regex.Matcher.<init>(Matcher.java:252)
+	at java.base/java.util.regex.Pattern.matcher(Pattern.java:1144)
+	at java.base/java.util.regex.Pattern.matches(Pattern.java:1185)
+	at com.example.schoolmanagement.util.UtilService.emailValidation(UtilService.java:8)
+	at com.example.schoolmanagement.service.SchoolService.validateEmail(SchoolService.java:36)
+	at com.example.schoolmanagement.service.SchoolService.create(SchoolService.java:30)
+	at com.example.schoolmanagement.service.SchoolServiceTest.testCreate(SchoolServiceTest.java:68)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
